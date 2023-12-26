@@ -42,7 +42,7 @@ const InfoScreen = ({ route, navigation }) => {
               style={styles.menuIconStyle}
             />
           </TouchableOpacity>
-          <Text style={styles.HeaderText}>Detail</Text>
+          <Text style={styles.HeaderText}>Detallar</Text>
           <Image
             source={dots}
             resizeMode="contain"
@@ -64,7 +64,7 @@ const InfoScreen = ({ route, navigation }) => {
               {vehicle.make} {vehicle.model}
             </Text>
             <Text style={styles.price}>
-              <Text style={styles.amount}>${vehicle.price_per_day}</Text> /day
+              <Text style={styles.amount}>${vehicle.price_per_day}</Text> /kuniga
             </Text>
           </View>
           <Text style={styles.typetranText}>
@@ -73,19 +73,19 @@ const InfoScreen = ({ route, navigation }) => {
         </View>
 
         <Text style={styles.descriptionText}>{vehicle.description}</Text>
-        <Text style={styles.propertiesText}>Properties</Text>
+        <Text style={styles.propertiesText}>Xususiyatlari</Text>
 
         <View style={styles.propertiesArea}>
           <View style={styles.level}>
             <Text style={styles.propertyText}>
-              Motor power:
+              Motor kuchi:
               <Text style={styles.valueText}>
                 {" "}
                 {vehicle.properties.motor_power_hp} hp
               </Text>
             </Text>
             <Text style={styles.propertyText}>
-              Engine capacity:
+              Dvigatel quvvati:
               <Text style={styles.valueText}>
                 {" "}
                 {vehicle.properties.engine_capacity_cc} cc
@@ -102,7 +102,7 @@ const InfoScreen = ({ route, navigation }) => {
             </Text>
 
             <Text style={styles.propertyText}>
-              Traction:
+              Traktsiya:
               <Text style={styles.valueText}>
                 {" "}
                 {vehicle.properties.traction}
@@ -112,7 +112,7 @@ const InfoScreen = ({ route, navigation }) => {
         </View>
 
         <TouchableOpacity style={styles.rentButton}>
-          <Text style={styles.rentButtonText}>Rent a Car</Text>
+          <Text style={styles.rentButtonText}>Avtomobil ijarasi</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

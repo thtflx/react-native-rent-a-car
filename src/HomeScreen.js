@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView, TextInput, TouchableOpacity } from "react-native";
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Image, SafeAreaView, StyleSheet, Text, View, Modal } from "react-native";
 
 const menu = require("./assets/icons/menu.png");
 const face = require("./assets/face.png");
@@ -10,18 +10,25 @@ const image_v_1 = require("./assets/vehicles/v-1.png");
 const image_v_2 = require("./assets/vehicles/v-2.png");
 const image_v_3 = require("./assets/vehicles/v-3.png");
 const image_v_4 = require("./assets/vehicles/v-4.png");
+const image_v_5 = require("./assets/vehicles/v-5.png");
 
 import data from "./dataset/vehicles.json";
 
 const HomeScreen = ({ navigation }) => {
-    const [vehicles, setVehicles] = useState(data.vehicles);
-    const [filteredVehicles, setFilteredVehicles] = useState(data.vehicles);
+  const [vehicles, setVehicles] = useState(data.vehicles);
+  const [filteredVehicles, setFilteredVehicles] = useState(data.vehicles);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
 
   const getImage = (id) => {
-    if(id == 1) return image_v_1;
-    if(id == 2) return image_v_2;
-    if(id == 3) return image_v_3;
-    if(id == 4) return image_v_4;
+    if (id == 1) return image_v_1;
+    if (id == 2) return image_v_2;
+    if (id == 3) return image_v_3;
+    if (id == 4) return image_v_4;
+    if (id == 5) return image_v_5;
   }
 
 
@@ -30,7 +37,7 @@ const HomeScreen = ({ navigation }) => {
     const lowercasedKeyword = keyword.toLowerCase();
 
     const results = vehicles.filter(vehicle => {
-        return vehicle.make.toLowerCase().includes(lowercasedKeyword)
+      return vehicle.make.toLowerCase().includes(lowercasedKeyword)
     })
 
     setFilteredVehicles(results);
@@ -45,23 +52,43 @@ const HomeScreen = ({ navigation }) => {
             resizeMode="contain"
             style={styles.menuIconStyle}
           />
-          <Image
-            source={face}
-            resizeMode="contain"
-            style={styles.faceIconStyle}
-          />
+
+          <Modal
+            transparent
+            visible={isDropdownVisible}
+            animationType="slide"
+          >
+            <View style={styles.modalContainer}>
+              {/* Your dropdown content goes here */}
+              <Text style={{ fontSize: 20, color: '#333' }}>Sozlamalar</Text>
+
+
+
+              <TouchableOpacity style={{ backgroundColor: '#333', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 50, borderRadius: 3, padding: 5 }} onPress={toggleDropdown}>
+                <Text style={{ color: 'white' }}>Qaytish</Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+
+          <TouchableOpacity onPress={toggleDropdown}>
+            <Image
+              source={face}
+              resizeMode="contain"
+              style={styles.faceIconStyle}
+            />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.titleSection}>
-          <Text style={styles.title}>Rent a Car</Text>
+          <Text style={styles.title}>Avtomobil ijarasi</Text>
         </View>
 
         <View style={styles.searchSection}>
           <View style={styles.searchPallet}>
             <TextInput
-                style={styles.searchInput}
-                placeholder="Search a Car"
-                onChangeText={(text) => searchVehicles(text)}
+              style={styles.searchInput}
+              placeholder="Qidirish"
+              onChangeText={(text) => searchVehicles(text)}
             />
             <View style={styles.searchIconArea}>
               <Image
@@ -74,30 +101,34 @@ const HomeScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.typesSection}>
-          <Text style={styles.typesTextActive}>All</Text>
-          <Text style={styles.typesText}>Suv</Text>
-          <Text style={styles.typesText}>Sedan</Text>
-          <Text style={styles.typesText}>Mpv</Text>
-          <Text style={styles.typesText}>Hatchback</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <Text style={styles.typesTextActive}>Hammasi</Text>
+            <Text style={styles.typesText}>Suv</Text>
+            <Text style={styles.typesText}>Sedan</Text>
+            <Text style={styles.typesText}>Mpv</Text>
+            <Text style={styles.typesText}>Hatchback</Text>
+            <Text style={styles.typesText}>Jeep</Text>
+            <Text style={styles.typesText}>Kabriolet</Text>
+          </ScrollView>
         </View>
 
         <View style={styles.listSection}>
-          <Text style={styles.headText}>Most Rented</Text>
+          <Text style={styles.headText}>Eng ko'p ijaraga olingan</Text>
 
           <ScrollView style={styles.elementPallet}>
             {filteredVehicles.map((vehicle) => {
               return (
                 <TouchableOpacity
-                    style={styles.element}
-                    key={vehicle.id}
-                    activeOpacity={0.8}
-                    onPress={() => navigation.navigate('Info', { id: vehicle.id }) }
+                  style={styles.element}
+                  key={vehicle.id}
+                  activeOpacity={0.8}
+                  onPress={() => navigation.navigate('Info', { id: vehicle.id })}
                 >
                   <View style={styles.infoArea}>
                     <Text style={styles.infoTitle}>{vehicle.make} {vehicle.model}</Text>
                     <Text style={styles.infoSub}>{vehicle.type}-{vehicle.transmission}</Text>
                     <Text style={styles.infoPrice}>
-                      <Text style={styles.infoAmount}>${vehicle.price_per_day} </Text>/day
+                      <Text style={styles.infoAmount}>${vehicle.price_per_day} </Text>/kuniga
                     </Text>
                   </View>
                   <View style={styles.imageArea}>
@@ -120,6 +151,28 @@ const HomeScreen = ({ navigation }) => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+  menuIconStyle: {
+    width: 30,
+    height: 30,
+    // Add any additional styles as needed
+  },
+  modalContainer: {
+    position: 'absolute',
+    top: 80, // Adjust the top position as needed
+    right: 60, // Adjust the right position as needed
+    width: 150, // Adjust the width as needed
+    height: 110,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    elevation: 5, // Add elevation for shadow (Android)
+    shadowColor: '#000', // Add shadow color (iOS)
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    padding: 10,
+  },
+  dropdownContent: {
+    // Your styles for dropdown content
+  },
   safeArea: {
     flex: 1,
     backgroundColor: "#e7e7e7",
@@ -180,7 +233,7 @@ const styles = StyleSheet.create({
   magnifyingIconStyle: {
     width: 24,
     height: 24,
-    marginRight: -10,
+    marginRight: 30,
   },
 
   typesSection: {
@@ -213,7 +266,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     width: "110%",
-    height: 450,
+    height: 350,
   },
   element: {
     height: 100,

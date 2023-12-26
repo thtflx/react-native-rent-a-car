@@ -59,6 +59,21 @@
           "engine_capacity_cc": 1300,
           "traction": "FWD"
         }
+      },
+      {
+        "id": 5,
+        "make": "BMW",
+        "model": "M5",
+        "type": "MPV",
+        "transmission": "Manual",
+        "price_per_day": 250,
+        "description": "Bayerische Motoren Werke AG, abbreviated as BMW (German pronunciation: [ˌbeːʔɛmˈveː] ⓘ), is a German multinational manufacturer of luxury vehicles and motorcycles headquartered in Munich, Bavaria, Germany. The company was founded in 1916 as a manufacturer of aircraft engines, which it produced from 1917 to 1918 and again from 1933 to 1945",
+        "properties": {
+          "motor_power_hp": 95,
+          "fuel_type": "Petrol",
+          "engine_capacity_cc": 1300,
+          "traction": "FWD"
+        }
       }
     ]
 }

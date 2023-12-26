@@ -66,17 +66,17 @@ export default function App() {
           tabBarShowLabel: false,
           tabBarStyle: {
             position: "absolute",
-            padding: 10,
-            backgroundColor:  'black',
+            padding: 5,
+            backgroundColor: 'black',
             borderTopStartRadius: 40,
             borderTopEndRadius: 40,
           }
         })}
       >
-      <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Map" component={MapScreen} />
-      <Tab.Screen name="Saved" component={SavedScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="Home" component={HomeStack} />
+        <Tab.Screen name="Map" component={MapScreen} />
+        <Tab.Screen name="Saved" component={SavedScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -90,6 +90,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   footerIcon: {
-    width: 25
+    width: 17
   }
 });
